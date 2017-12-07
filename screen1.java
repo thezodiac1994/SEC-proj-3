@@ -17,7 +17,7 @@ public class screen1 {
 	  	
 	}
 
-	public static void set_panel2(JPanel panel2){
+	public static String set_panel2(JPanel panel2){
 		panel2.setLayout(new FlowLayout());
 	  	JLabel memberscount = new JLabel("Number of group members in your team");
 	  	panel2.add(memberscount);
@@ -25,10 +25,11 @@ public class screen1 {
 	  	JComboBox comboBox = new JComboBox(elements);
 	  	panel2.add(comboBox);
 	  	panel2.setMaximumSize(panel2.getPreferredSize());
-	  
+	  	return comboBox.getSelectedItem().toString();
+
 	}
 
-	public static void set_panel3(JPanel panel3){
+	public static boolean set_panel3(JPanel panel3){
 	  panel3.setLayout(new FlowLayout());
 	  JCheckBox checkbox = new JCheckBox("Show previously entered scores");
 	  checkbox.setAlignmentX(JCheckBox.CENTER);
@@ -36,7 +37,7 @@ public class screen1 {
 	  JButton next = new JButton("Next");
 	  panel3.add(next);	  
 	  panel3.setMaximumSize(panel3.getPreferredSize());
-	  	
+	  return checkbox.isSelected();
 	}
 
 
@@ -47,16 +48,19 @@ public class screen1 {
 		  
 			  
 		 JPanel panel2 = new JPanel();
-		 set_panel2(panel2);
+		 String membersCount = set_panel2(panel2);
 
 
 		 JPanel panel3 = new JPanel();
-		 set_panel3(panel3);
-		  
-
+		 boolean flag = set_panel3(panel3);
+		 
 		 frame.add(panel2);
 		 frame.add(panel3);
 	  	 frame.setVisible(true);
+
+	  	 System.out.println(membersCount + " " + flag);
+//	  	 screen2 obj = new screen2()
+
   	  }
 
 }
