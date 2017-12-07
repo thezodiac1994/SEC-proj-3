@@ -39,7 +39,7 @@ public class screen1 {
 	  panel3.setMaximumSize(panel3.getPreferredSize());
 	  return checkbox.isSelected();
 
-	  screen2 (3,true);
+//	  screen2 (3,true);
 	}
 
 
