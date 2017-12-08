@@ -1,11 +1,23 @@
 import java.awt.*;
 import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 
-public class screen1 {
+public class screen1 implements ActionListener{
 	
-	  
-	public static void initialize_frame (JFrame frame){
+	static JFrame frame =  new JFrame();
+	static JPanel panel2 = new JPanel();
+	static JPanel panel3 = new JPanel();
+	static JCheckBox checkbox = new JCheckBox("Show previously entered scores");
+	static Object[] elements = new Object[] {"2", "3", "4", "5", "6", "7"};
+	static JComboBox comboBox = new JComboBox(elements);
+	  		  
+		 
+
+	public void initialize_frame (JFrame frame){
 		
 		frame.setTitle("Software engineering peer evaluation system");  
 	  	frame.setSize(500, 300);  
@@ -17,52 +29,51 @@ public class screen1 {
 	  	
 	}
 
-	public static String set_panel2(JPanel panel2){
-		panel2.setLayout(new FlowLayout());
+	public void set_panel2(JPanel panel){
+		panel.setLayout(new FlowLayout());
 	  	JLabel memberscount = new JLabel("Number of group members in your team");
-	  	panel2.add(memberscount);
-	  	Object[] elements = new Object[] {"2", "3", "4", "5", "6", "7"};
-	  	JComboBox comboBox = new JComboBox(elements);
-	  	panel2.add(comboBox);
-	  	panel2.setMaximumSize(panel2.getPreferredSize());
-	  	return comboBox.getSelectedItem().toString();
+	  	panel.add(memberscount);
+	  	panel.add(comboBox);
+	  	panel.setMaximumSize(panel.getPreferredSize());
 
 	}
 
-	public static boolean set_panel3(JPanel panel3){
-	  panel3.setLayout(new FlowLayout());
-	  JCheckBox checkbox = new JCheckBox("Show previously entered scores");
+	public void set_panel3(JPanel panel){
+	  panel.setLayout(new FlowLayout());
 	  checkbox.setAlignmentX(JCheckBox.CENTER);
-	  panel3.add(checkbox);
+	  panel.add(checkbox);
 	  JButton next = new JButton("Next");
-	  panel3.add(next);	  
-	  panel3.setMaximumSize(panel3.getPreferredSize());
-	  return checkbox.isSelected();
-
+	  next.addActionListener(this);
+	  panel.add(next);	  
+	  panel.setMaximumSize(panel3.getPreferredSize());
+	  
 //	  screen2 (3,true);
+	}
+
+	public void actionPerformed(ActionEvent arg0) {
+		//System.out.println(membersCount + " " + flag);
+		this.frame.setVisible(false);
+
+		String s = comboBox.getSelectedItem().toString();
+		int x = Integer.parseInt(s);
+		boolean flag = checkbox.isSelected();
+		screen2 obj = new screen2(x,flag);
+	  	obj.createAndShowGUI();
+		
+
 	}
 
 
 	public static void main(String[] args) {
-	  
-		JFrame frame =  new JFrame();
-		 initialize_frame(frame); 
-		  
-			  
-		 JPanel panel2 = new JPanel();
-		 String membersCount = set_panel2(panel2);
+	  	 screen1 objs1 = new screen1();
+		 objs1.initialize_frame(objs1.frame); 
+		 objs1.set_panel2(objs1.panel2);
+		 objs1.set_panel3(objs1.panel3);
+		 objs1.frame.add(panel2);
+		 objs1.frame.add(panel3);
+	  	 objs1.frame.setVisible(true);
 
 
-		 JPanel panel3 = new JPanel();
-		 boolean flag = set_panel3(panel3);
-		 
-		 frame.add(panel2);
-		 frame.add(panel3);
-	  	 frame.setVisible(true);
-
-	  	 System.out.println(membersCount + " " + flag);
-//	  	 screen2 obj = new screen2()
-
-  	  }
+	  }
 
 }

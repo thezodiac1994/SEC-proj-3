@@ -11,18 +11,24 @@ public class screen2 extends JPanel {
     static int memberCount=0;
 	static boolean previouslyFilled=false;
 
+    public screen2()
+    {
+
+    }
  
     public screen2(int x, boolean y) {
     	super(new GridLayout(1,0));
  
        	memberCount = x;
 		previouslyFilled = y;
-       	 
+       	System.out.println(memberCount + " " + previouslyFilled);
+
        	String[] columnNames = {"#","Name",
                         "Professionalism",
                         "Participation",
                         "Work Evaluation",
                         };
+
 
 	    Object[][] bank = {
 	    {new Integer(1),"John", new Double(5), new Double(4), new Double(5)},
