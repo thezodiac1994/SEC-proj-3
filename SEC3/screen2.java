@@ -54,7 +54,7 @@ public class screen2 extends JPanel {
                 current_sum = current_sum + scores[i][j];
 
 
-            normalized_score[i] = current_sum / total;
+            normalized_score[i] = current_sum * 1.0 / total * 1.0;
 
         }
 
