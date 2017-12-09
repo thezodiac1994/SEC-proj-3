@@ -16,6 +16,14 @@ public class screen2 extends JPanel {
 //    static Double[] results = new Double[];
 
 
+    public screen2(int x, boolean y) {
+    	super(new GridLayout(1,0));
+ 
+       	memberCount = x;
+		previouslyFilled = y;
+       	System.out.println(memberCount + " " + previouslyFilled);
+    }
+
     public void initialize_frame (JFrame frame){
         
         frame.setTitle("Software engineering peer evaluation system");  
@@ -29,25 +37,38 @@ public class screen2 extends JPanel {
     }
 
 
-        public screen2()
-    {
+    public double[] normalize (int [][] scores){
+        
+        double[] normalized_score = new double[scores.length];
+
+        int total = 0;
+        for (int i=0;i<scores.length;i++)
+            for(int j=0;j<scores[0].length;j++)
+                total = total + scores[i][j];
+
+
+        for(int i=0;i<scores.length;i++){
+            int current_sum = 0;
+
+            for(int j=0;j<scores[0].length; j++)
+                current_sum = current_sum + scores[i][j];
+
+
+            normalized_score[i] = current_sum / total;
+
+        }
+
+        return normalized_score;
 
     }
- 
-    public screen2(int x, boolean y) {
-    	super(new GridLayout(1,0));
- 
-       	memberCount = x;
-		previouslyFilled = y;
-       	System.out.println(memberCount + " " + previouslyFilled);
-    }
+
 
     public void create_table(){
        	String[] columnNames = {"#","Name",
                         "Professionalism",
                         "Participation",
                         "Work Evaluation",
-                        };
+                        };                    
 
 
 	    Object[][] bank = {
