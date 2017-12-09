@@ -142,6 +142,12 @@ public class screen2 extends JPanel implements ActionListener {
 			for (int j = 0; j < scores[0].length; j++)
 				total = total + scores[i][j];
 
+		// the GUI needs to handle this case and  raise and error when all entries are 0. 
+		// even if the normalization function gets all 0s, it should throw and exception
+		if(total == 0)
+			throw new ArithmeticException("All entries cant be zero");   
+
+
 		for (int i = 0; i < scores.length; i++) {
 			int current_sum = 0;
 
@@ -182,8 +188,9 @@ public class screen2 extends JPanel implements ActionListener {
 				}
 			}
 		}
-		
-		JOptionPane.showMessageDialog(null, "Please enter valid scores.");
+
+		if(isAllZeroOrNull==true)
+			JOptionPane.showMessageDialog(null, "Please enter valid scores.");
 		
 		if(!isAllZeroOrNull)
 			normalize(scores);
