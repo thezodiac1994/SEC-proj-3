@@ -134,6 +134,7 @@ public class screen2 extends JPanel {
         obj.frame.add(table);
         obj.frame.pack();
         JButton submit = new JButton("Submit");
+        obj.frame.add(submit);
         //submit.addActionListener(this);
         obj.frame.setVisible(true);
     }
