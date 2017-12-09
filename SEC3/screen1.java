@@ -1,3 +1,5 @@
+package sce;
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.BorderLayout;
@@ -12,8 +14,8 @@ public class screen1 implements ActionListener{
 	static JPanel panel2 = new JPanel();
 	static JPanel panel3 = new JPanel();
 	static JCheckBox checkbox = new JCheckBox("Show previously entered scores");
-	static Object[] elements = new Object[] {"2", "3", "4", "5", "6", "7"};
-	static JComboBox comboBox = new JComboBox(elements);
+	static String[] elements = new String[] {"2", "3", "4", "5", "6", "7"};
+	static JComboBox<String> comboBox = new JComboBox<String>(elements);
 	  		  
 		 
 
