@@ -13,7 +13,9 @@ public class screen2 extends JPanel {
     static JPanel panel3 = new JPanel();
     static JTable table = new JTable();
     static JFrame frame = new JFrame("SimpleTableDemo");
-        
+//    static Double[] results = new Double[];
+
+
     public void initialize_frame (JFrame frame){
         
         frame.setTitle("Software engineering peer evaluation system");  
@@ -87,7 +89,16 @@ public class screen2 extends JPanel {
         //Add the scroll pane to this panel.
         add(scrollPane);
     }
- 
+    
+
+
+
+
+
+
+
+
+
     private void printDebugData(JTable table) {
         int numRows = table.getRowCount();
         int numCols = table.getColumnCount();
@@ -122,17 +133,24 @@ public class screen2 extends JPanel {
         obj.create_table();
         obj.frame.add(table);
         obj.frame.pack();
-        
+        JButton submit = new JButton("Submit");
+        //submit.addActionListener(this);
         obj.frame.setVisible(true);
     }
- 
-    public static void main(String[] args) {
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
+
+/*
+    public void actionPerformed(ActionEvent arg0) {
+        //System.out.println(membersCount + " " + flag);
+        this.frame.setVisible(false);
+
+        String s = comboBox.getSelectedItem().toString();
+        int x = Integer.parseInt(s);
+        boolean flag = checkbox.isSelected();
+        screen2 obj = new screen2(x,flag);
+        obj.createAndShowGUI();
+    
+
     }
+*/ 
+    
 }
