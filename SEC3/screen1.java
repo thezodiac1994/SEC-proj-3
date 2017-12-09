@@ -17,15 +17,15 @@ public class screen1 implements ActionListener{
 	  		  
 		 
 
-	public void initialize_frame (JFrame frame){
+	public void initialize_frame (JFrame frame1){
 		
-		frame.setTitle("Software engineering peer evaluation system");  
-	  	frame.setSize(500, 300);  
-	  	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-	  	frame.setLayout(new GridLayout(4,1));
+		frame1.setTitle("Software engineering peer evaluation system");  
+	  	frame1.setSize(500, 300);  
+	  	frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+	  	frame1.setLayout(new GridLayout(4,1));
 	  	JLabel head = new JLabel("Welcome to peer evaluation system",JLabel.CENTER);
-	  	frame.add(Box.createRigidArea(new Dimension(3,0)));
-	  	frame.add(head);
+	  	frame1.add(Box.createRigidArea(new Dimension(3,0)));
+	  	frame1.add(head);
 	  	
 	}
 
@@ -45,7 +45,7 @@ public class screen1 implements ActionListener{
 	  JButton next = new JButton("Next");
 	  next.addActionListener(this);
 	  panel.add(next);	  
-	  panel.setMaximumSize(panel3.getPreferredSize());
+	  panel.setMaximumSize(panel.getPreferredSize());
 	  
 //	  screen2 (3,true);
 	}

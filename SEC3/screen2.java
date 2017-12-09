@@ -10,8 +10,24 @@ public class screen2 extends JPanel {
     private boolean DEBUG = false;
     static int memberCount=0;
 	static boolean previouslyFilled=false;
+    static JPanel panel3 = new JPanel();
+    static JTable table = new JTable();
+    static JFrame frame = new JFrame("SimpleTableDemo");
+        
+    public void initialize_frame (JFrame frame){
+        
+        frame.setTitle("Software engineering peer evaluation system");  
+        frame.setSize(500, 300);  
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        frame.setLayout(new GridLayout(4,1));
+        JLabel head = new JLabel("Welcome to peer evaluation system",JLabel.CENTER);
+        frame.add(Box.createRigidArea(new Dimension(3,0)));
+        frame.add(head);
+        
+    }
 
-    public screen2()
+
+        public screen2()
     {
 
     }
@@ -22,7 +38,9 @@ public class screen2 extends JPanel {
        	memberCount = x;
 		previouslyFilled = y;
        	System.out.println(memberCount + " " + previouslyFilled);
+    }
 
+    public void create_table(){
        	String[] columnNames = {"#","Name",
                         "Professionalism",
                         "Participation",
@@ -50,13 +68,13 @@ public class screen2 extends JPanel {
 				}
 
 		}
- 
-        final JTable table = new JTable(data, columnNames);
-        table.setPreferredScrollableViewportSize(new Dimension(500, 70));
-        table.setFillsViewportHeight(true);
+        
+        this.table = new JTable(data, columnNames);
+        this.table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+        this.table.setFillsViewportHeight(true);
  
         if (DEBUG) {
-            table.addMouseListener(new MouseAdapter() {
+            this.table.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
                     printDebugData(table);
                 }
@@ -64,7 +82,7 @@ public class screen2 extends JPanel {
         }
  
         //Create the scroll pane and add the table to it.
-        JScrollPane scrollPane = new JScrollPane(table);
+        JScrollPane scrollPane = new JScrollPane(this.table);
  
         //Add the scroll pane to this panel.
         add(scrollPane);
@@ -93,18 +111,19 @@ public class screen2 extends JPanel {
      */
     public static void createAndShowGUI() {
         //Create and set up the window.
-        JFrame frame = new JFrame("SimpleTableDemo");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
- 
+
         //Create and set up the content pane.
-         screen2 newContentPane = new screen2(memberCount,previouslyFilled); // set this to 5 just for testing purposes -> this value needs to be extracted from function call
+        screen2 obj = new screen2(memberCount,previouslyFilled); // set this to 5 just for testing purposes -> this value needs to be extracted from function call
         
-        newContentPane.setOpaque(true); //content panes must be opaque
-        frame.setContentPane(newContentPane);
- 
+        obj.setOpaque(true); //content panes must be opaque
+//      frame.setContentPane(newContentPane);
         //Display the window.
-        frame.pack();
-        frame.setVisible(true);
+        obj.initialize_frame(obj.frame);
+        obj.create_table();
+        obj.frame.add(table);
+        obj.frame.pack();
+        
+        obj.frame.setVisible(true);
     }
  
     public static void main(String[] args) {
