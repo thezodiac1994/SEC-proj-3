@@ -52,7 +52,6 @@ public class screen2 extends JPanel implements ActionListener {
 				{ new Integer(3), "Mike", new Integer(5), new Integer(4), new Integer(5) },
 				{ new Integer(4), "Gordon", new Integer(5), new Integer(4), new Integer(5) },
 				{ new Integer(5), "Liz", new Integer(5), new Integer(4), new Integer(5) },
-				{ new Integer(6), "Karen", new Integer(5), new Integer(4), new Integer(5) },
 				{ new Integer(7), "Rob", new Integer(5), new Integer(4), new Integer(5) } };
 
 		Object[][] data = new Object[memberCount][5];
@@ -88,7 +87,7 @@ public class screen2 extends JPanel implements ActionListener {
 		this.table.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		this.table.setFillsViewportHeight(true);
 		this.table.setRowHeight(30);
-
+			    
 		for (int i = 2; i < 5; i++) {
 			JComboBox<Integer> myComboBox = new JComboBox<Integer>(scoreList);
 			this.table.getColumnModel().getColumn(i).setCellEditor(new DefaultCellEditor(myComboBox));
@@ -101,12 +100,6 @@ public class screen2 extends JPanel implements ActionListener {
 				}
 			});
 		}
-
-		// Create the scroll pane and add the table to it.
-		JScrollPane scrollPane = new JScrollPane(this.table);
-
-		// Add the scroll pane to this panel.
-		add(scrollPane);
 	}
 
 	private void printDebugData(JTable table) {
@@ -139,7 +132,7 @@ public class screen2 extends JPanel implements ActionListener {
 		// Display the window.
 		obj.initialize_frame(obj.frame);
 		obj.create_table();
-		obj.frame.add(table);
+		obj.frame.add(new JScrollPane(table));
 		obj.frame.pack();
 		JButton submit = new JButton("Submit");
 		obj.frame.add(submit);
