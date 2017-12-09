@@ -1,5 +1,3 @@
-package sce;
-
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.text.html.HTMLEditorKit.Parser;
@@ -153,6 +151,11 @@ public class screen2 extends JPanel implements ActionListener {
 			normalized_score[i] = current_sum * 1.0 / total * 1.0;
 
 		}
+		
+		// debug only 
+		for (int i=0;i<scores.length;i++)	
+			System.out.println(i + " the score normalized = " + normalized_score[i]);
+
 
 		return normalized_score;
 
