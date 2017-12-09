@@ -166,15 +166,26 @@ public class screen2 extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		int numRows = table.getRowCount();
 		javax.swing.table.TableModel model = table.getModel();
+
+		boolean isAllZeroOrNull = true;
 		
 		int[][] scores = new int[numRows][3];
 		
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < 3; j++) {
-				scores[i][j] = (Integer)model.getValueAt(i, j+2);
+				Object value = model.getValueAt(i, j+2);
+				
+				if(value != null && (Integer)value != 0)
+				{
+					scores[i][j] = (Integer)value;
+					isAllZeroOrNull = false;
+				}
 			}
 		}
 		
-		normalize(scores);
+		JOptionPane.showMessageDialog(null, "Please enter valid scores.");
+		
+		if(!isAllZeroOrNull)
+			normalize(scores);
 	}
 }
