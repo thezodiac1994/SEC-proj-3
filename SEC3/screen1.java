@@ -18,7 +18,10 @@ public class screen1 implements ActionListener{
 		 
 
 	public void initialize_frame (JFrame frame1){
-		// this function initializes all the properties of the original frame 
+		/**
+		* this function initializes all the properties of the original frame 
+		@param frame1 : it initializes the frame that we will be using right at the beginning of the GUI i.e it is the first screen 
+		*/
 		frame1.setTitle("Software engineering peer evaluation system");  // title of the frame
 	  	frame1.setSize(500, 300);   // size of frame
 	  	frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
@@ -30,7 +33,10 @@ public class screen1 implements ActionListener{
 	}
 
 	public void set_panel2(JPanel panel){
-		// this function sets all the properties of the panel2 -> its a dropdown for the number of people on the group
+		/**
+	   	* this function sets all the properties of the panel2 -> it holds a combobox dropdown for the number of members in the group
+		@param panel: It is the panel that needs to be set -> (panel2 here is passed as parameter from the main function) 
+		*/
 		panel.setLayout(new FlowLayout());
 	  	JLabel memberscount = new JLabel("Number of group members in your team"); // message to input the number of members in the group 
 	  	panel.add(memberscount); // add label to the panel
@@ -40,19 +46,30 @@ public class screen1 implements ActionListener{
 	}
 
 	public void set_panel3(JPanel panel){
-	  // this function sets all the properties of the panel3 -> its a check box for whether score has been previously filled with a NEXT button
-	  panel.setLayout(new FlowLayout());  
-	  checkbox.setAlignmentX(JCheckBox.CENTER); // center align
-	  panel.add(checkbox); // add the check box 
-	  JButton next = new JButton("Next"); // the bext button 
-	  next.addActionListener(this);  // action listener to control what should be done on the click of next button 
-	  panel.add(next);	 // add button to the panel
-	  panel.setMaximumSize(panel.getPreferredSize());
+	  
+	 	 /**
+	 *  this function sets all the properties of the panel3 -> its a check box for whether score has been previously filled or not along  with a NEXT button
+		@param panel: It is the panel that needs to be set -> (panel3 here is passed as parameter from the main function) 
+		*/
+
+		 panel.setLayout(new FlowLayout());  
+		 checkbox.setAlignmentX(JCheckBox.CENTER); // center align
+		 panel.add(checkbox); // add the check box 
+		 JButton next = new JButton("Next"); // the bext button 
+		 next.addActionListener(this);  // action listener to control what should be done on the click of next button 
+		 panel.add(next);	 // add button to the panel
+		 panel.setMaximumSize(panel.getPreferredSize());
 	  
 //	  screen2 (3,true);
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
+
+
+	/**
+	 * This method is called when the next button is clicked. It creates a screen2 object and goes to screen2
+	*/
+
 		//System.out.println(membersCount + " " + flag);
 		this.frame.setVisible(false); // we need to close this frame 
 
@@ -67,6 +84,11 @@ public class screen1 implements ActionListener{
 
 
 	public static void main(String[] args) {
+
+	/**
+	 * This is the main method which is responsible of creating screen1 GUI
+	*/
+
 	  	 screen1 objs1 = new screen1(); // create instance of screen1 
 		 objs1.initialize_frame(objs1.frame); // initialize the frame 
 		 objs1.set_panel2(objs1.panel2); // set 1st panel
