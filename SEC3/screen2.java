@@ -67,13 +67,12 @@ public class screen2 extends JPanel implements ActionListener {
 				{ new Integer(3), "Mike", new Integer(5), new Integer(4), new Integer(5) },
 				{ new Integer(4), "Gordon", new Integer(5), new Integer(4), new Integer(5) },
 				{ new Integer(5), "Liz", new Integer(5), new Integer(4), new Integer(5) },
-				{ new Integer(5), "Scott", new Integer(4), new Integer(5), new Integer(5) },
-				{ new Integer(6), "Rob", new Integer(5), new Integer(4), new Integer(5) },
-				{ new Integer(7), "Pretty", new Integer(5), new Integer(4), new Integer(5) }};
-
+				{ new Integer(6), "Scott", new Integer(4), new Integer(5), new Integer(5) },
+				{ new Integer(7), "Rob", new Integer(5), new Integer(4), new Integer(5) }};
+				
 		Object[][] data = new Object[memberCount][5];
 
-		// List to populate the scored Combobox. Possible values 0 - 5
+		// List to populate the scored Combo box. Possible values 0 - 5
 		Integer[] scoreList = new Integer[] { 0, 1, 2, 3, 4, 5 };
 
 		// If previously filled CheckBox is selected
@@ -210,13 +209,11 @@ public class screen2 extends JPanel implements ActionListener {
 				if(value != null)
 					sum = sum + (Integer) value;
 			}
+			// Populating a list of all Member names
 			members[i] = (String)model.getValueAt(i, 1);
 		}
 
-		// Populating a list of all Member names
-		for (int i =0 ; i<numRows; i++)
-			System.out.println(members[i]);
-		
+				
 		// In case some or all scores are not selected
 		if (isNull)
 			JOptionPane.showMessageDialog(null, "Please enter all the scores");
