@@ -11,8 +11,8 @@ public class screen3 {
 	JPanel panel1;
 	JPanel panel2;
 
-    JLabel[] memlabels=new JLabel[6];
-    JLabel[] scorelabels=new JLabel[6];
+    JLabel[] memlabels=new JLabel[7];
+    JLabel[] scorelabels=new JLabel[7];
 
 
 	public screen3(){
@@ -39,15 +39,15 @@ public class screen3 {
 		
         
 		panel0 = new JPanel();
-        panel0.setLayout(new GridLayout(6,1));
+        panel0.setLayout(new GridLayout(7,1));
         panel1 = new JPanel();
-        panel1.setLayout(new GridLayout(6,1));
-        for(int i=0;i<memlabels.length;i++) {
+        panel1.setLayout(new GridLayout(7,1));
+        for(int i=0;i<members.length;i++) {
         	panel1.add(memlabels[i]);
         }
         panel2 = new JPanel();
-        panel2.setLayout(new GridLayout(6,1));
-        for(int i=0;i<scorelabels.length;i++) {
+        panel2.setLayout(new GridLayout(7,1));
+        for(int i=0;i<scores.length;i++) {
         	panel2.add(scorelabels[i]);
         }
         panel = new JPanel();

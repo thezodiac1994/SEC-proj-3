@@ -1,3 +1,4 @@
+package sec;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -53,7 +54,8 @@ public class screen2 extends JPanel implements ActionListener {
 				{ new Integer(4), "Gordon", new Integer(5), new Integer(4), new Integer(5) },
 				{ new Integer(5), "Liz", new Integer(5), new Integer(4), new Integer(5) },
 				{ new Integer(5), "Scott", new Integer(4), new Integer(5), new Integer(5) },
-				{ new Integer(7), "Rob", new Integer(5), new Integer(4), new Integer(5) } };
+				{ new Integer(6), "Rob", new Integer(5), new Integer(4), new Integer(5) },
+				{ new Integer(7), "Pretty", new Integer(5), new Integer(4), new Integer(5) }};
 
 		Object[][] data = new Object[memberCount][5];
 
@@ -165,7 +167,7 @@ public class screen2 extends JPanel implements ActionListener {
 			for (int j = 0; j < scores[0].length; j++)
 				current_sum = current_sum + scores[i][j];	
 			double a = (current_sum * 1.0) / (total * 1.0);
-			normalized_score[i] = Math.floor(a *10)/10;
+			normalized_score[i] = Math.floor(a *100)/100;
 			//normalized_score[i] = (current_sum * 1.0) / (total * 1.0);
 
 
