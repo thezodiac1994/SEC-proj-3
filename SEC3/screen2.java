@@ -1,26 +1,30 @@
-package sec;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.text.DecimalFormat;
 
+/**
+ * @author Group 11
+ */
 public class screen2 extends JPanel implements ActionListener {
 	/**
-	 * 
+	 * Screen 2 contains the Peer evaluation form. On submit normalization is performed on the 
+	 * scored entered and on successful normalization, the control is navigated to screen3 
+	 */
+	
+	/**
+	 *  Global variables
 	 */
 	private static final long serialVersionUID = 1L;
-	private boolean DEBUG = false;
 	static int memberCount = 0;
 	static boolean previouslyFilled = false;
 	static JPanel panel3 = new JPanel();
 	static JTable table = new JTable();
 	static JFrame frame = new JFrame();
 
+	// Initializing the main frame for the screen 
 	public void initialize_frame(JFrame frame) {
 
 		frame.setTitle("Software engineering peer evaluation system");
@@ -28,26 +32,36 @@ public class screen2 extends JPanel implements ActionListener {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new GridLayout(4, 1));
 		JLabel head = new JLabel("Peer evaluation form", JLabel.CENTER);
-		//frame.add(Box.createRigidArea(new Dimension(3, 0)));
 		frame.add(head);
-
+	}
+	
+	/**
+	 * Screen 2 constructor without any parameters
+	 */
+	public screen2(){
+		
 	}
 
-	public screen2() {
-
-	}
-
-	public screen2(int x, boolean y) {
+	
+	/**
+	 * Screen 2 constructor with two parameters
+	 * @param memberCount
+	 * @param isPreviouslyFilled
+	 */
+	public screen2(int memberCount, boolean isPreviouslyFilled) {
 		super(new GridLayout(1, 0));
 
-		memberCount = x;
-		previouslyFilled = y;
-		System.out.println(memberCount + " " + previouslyFilled);
+		this.memberCount = memberCount;
+		this.previouslyFilled = isPreviouslyFilled;
 	}
 
+	/**
+	 * Function to design the peer evaluation form
+	 */
 	public void create_table() {
 		String[] columnNames = { "#", "Name", "Professionalism", "Participation", "Work Evaluation", };
 
+		// Hard coded values in case of previously filled scored 
 		Object[][] bank = { { new Integer(1), "John", new Integer(5), new Integer(4), new Integer(5) },
 				{ new Integer(2), "Shavon", new Integer(5), new Integer(4), new Integer(5) },
 				{ new Integer(3), "Mike", new Integer(5), new Integer(4), new Integer(5) },
@@ -59,15 +73,18 @@ public class screen2 extends JPanel implements ActionListener {
 
 		Object[][] data = new Object[memberCount][5];
 
+		// List to populate the scored Combobox. Possible values 0 - 5
 		Integer[] scoreList = new Integer[] { 0, 1, 2, 3, 4, 5 };
 
+		// If previously filled CheckBox is selected
 		if (previouslyFilled == true) {
 			for (int i = 0; i < memberCount; i++)
 				for (int j = 0; j < 5; j++) {
 					data[i][j] = bank[i][j];
 				}
-
-		} else
+		} 
+		// If filling the form for the first time
+		else
 			for (int i = 0; i < memberCount; i++) {
 				data[i][0] = bank[i][0];
 				data[i][1] = bank[i][1];
@@ -76,7 +93,11 @@ public class screen2 extends JPanel implements ActionListener {
 				}
 			}
 
+		// Table model for the jTable
 		DefaultTableModel model = new DefaultTableModel(data, columnNames) {
+			
+			// ID and Name columns are disabled
+			// Columns with ComboBoxes for selecting scores is enabled
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				if(column == 1 || column == 0)
@@ -92,59 +113,41 @@ public class screen2 extends JPanel implements ActionListener {
 		this.table.setFillsViewportHeight(true);
 		this.table.setRowHeight(30);
 			    
+		// Setting ComboBoxes to select scores
 		for (int i = 2; i < 5; i++) {
 			JComboBox<Integer> myComboBox = new JComboBox<Integer>(scoreList);
 			this.table.getColumnModel().getColumn(i).setCellEditor(new DefaultCellEditor(myComboBox));
 		}
-
-		if (DEBUG) {
-			this.table.addMouseListener(new MouseAdapter() {
-				public void mouseClicked(MouseEvent e) {
-					printDebugData(table);
-				}
-			});
-		}
-	}
-
-	private void printDebugData(JTable table) {
-		int numRows = table.getRowCount();
-		int numCols = table.getColumnCount();
-		javax.swing.table.TableModel model = table.getModel();
-
-		System.out.println("Value of data: ");
-		for (int i = 0; i < numRows; i++) {
-			System.out.print("    row " + i + ":");
-			for (int j = 0; j < numCols; j++) {
-				System.out.print("  " + model.getValueAt(i, j));
-			}
-			System.out.println();
-		}
-		System.out.println("--------------------------");
 	}
 
 	/**
-	 * Create the GUI and show it. For thread safety, this method should be
-	 * invoked from the event-dispatching thread.
+	 * Create the GUI and show it
 	 */
 	public void createAndShowGUI() {
-		// Create and set up the window.
-
+		
 		// Create and set up the content pane.
 		screen2 obj = new screen2(memberCount, previouslyFilled);
 		obj.setOpaque(true); // content panes must be opaque
-		// frame.setContentPane(newContentPane);
+		
 		// Display the window.
 		obj.initialize_frame(obj.frame);
 		obj.create_table();
 		obj.frame.add(new JScrollPane(table));
 		obj.frame.pack();
+		
 		JButton submit = new JButton("Submit");
 		panel3.add(submit);
 		obj.frame.add(panel3);
 		submit.addActionListener(this);
+		
 		obj.frame.setVisible(true);
 	}
 
+	/**
+	 * Function to normalize the scores entered in the form
+	 * @param scores
+	 * @return Array of normalized scores memberwise
+	 */
 	public double[] normalize(int[][] scores) {
 
 		double[] normalized_score = new double[scores.length];
@@ -165,25 +168,23 @@ public class screen2 extends JPanel implements ActionListener {
 			int current_sum = 0;
 
 			for (int j = 0; j < scores[0].length; j++)
-				current_sum = current_sum + scores[i][j];	
+				current_sum = current_sum + scores[i][j];
+			
+			// Rounding off the score upto 2 decimal places
 			double a = (current_sum * 1.0) / (total * 1.0);
 			normalized_score[i] = Math.floor(a *100)/100;
-			//normalized_score[i] = (current_sum * 1.0) / (total * 1.0);
-
-
 		}
-
-		// debug only
-		for (int i = 0; i < scores.length; i++)
-			System.out.println(i + " the score normalized = " + normalized_score[i]);
 
 		return normalized_score;
 
 	}
 
+	/**
+	 * Override method implemented by ActionListener
+	 * Called on the click of Submit button
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		int numRows = table.getRowCount();
 		javax.swing.table.TableModel model = table.getModel();
 
@@ -212,18 +213,25 @@ public class screen2 extends JPanel implements ActionListener {
 			members[i] = (String)model.getValueAt(i, 1);
 		}
 
+		// Populating a list of all Member names
 		for (int i =0 ; i<numRows; i++)
 			System.out.println(members[i]);
 		
+		// In case some or all scores are not selected
 		if (isNull)
 			JOptionPane.showMessageDialog(null, "Please enter all the scores");
+		
+		// In case all the scores entered are Zero
 		else if(sum == 0)
 			JOptionPane.showMessageDialog(null, "All the scores cannot be 0. Please enter valid scores");
 
 		if (!isNull && sum != 0){
 			double[] normalized_scores = new double[scores.length];
 			
+			// Normalize the scores
 			normalized_scores = normalize(scores);
+			
+			// Navigate to screen3 
 			screen2 object = new screen2();
 			object.frame.setVisible(false);
 			screen3 screen = new screen3(members, normalized_scores);
