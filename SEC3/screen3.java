@@ -1,5 +1,3 @@
-package sec;
-
 import java.awt.GridLayout;
 
 import javax.swing.*;
