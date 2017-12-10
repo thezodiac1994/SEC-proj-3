@@ -26,8 +26,8 @@ public class screen3 {
 	
 	/**
 	 * Display screen constructor called from previous window
-	 * @param members
-	 * @param scores
+	 * @param members   //Team members array
+	 * @param scores	//Array of normalized scores of the team
 	 */
 	public screen3(String[] members, double[] scores) {
 		set_screen(members,scores);
@@ -36,8 +36,8 @@ public class screen3 {
 	
 	/**
 	 * Setting display screen with team members and normalized scores
-	 * @param members
-	 * @param scores
+	 * @param members	//Team members array
+	 * @param scores	//Array of normalized scores of the team
 	 */
 	public void set_screen(String[] members, double[] scores) {
 		frame =  new JFrame();
