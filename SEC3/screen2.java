@@ -1,6 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.text.html.HTMLEditorKit.Parser;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +8,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class screen2 extends JPanel implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private boolean DEBUG = false;
 	static int memberCount = 0;
 	static boolean previouslyFilled = false;
@@ -48,7 +52,6 @@ public class screen2 extends JPanel implements ActionListener {
 				{ new Integer(3), "Mike", new Integer(5), new Integer(4), new Integer(5) },
 				{ new Integer(4), "Gordon", new Integer(5), new Integer(4), new Integer(5) },
 				{ new Integer(5), "Liz", new Integer(5), new Integer(4), new Integer(5) },
-				{ new Integer(6), "Karen", new Integer(5), new Integer(4), new Integer(5) },
 				{ new Integer(7), "Rob", new Integer(5), new Integer(4), new Integer(5) } };
 
 		Object[][] data = new Object[memberCount][5];
@@ -70,11 +73,21 @@ public class screen2 extends JPanel implements ActionListener {
 				}
 			}
 
+		DefaultTableModel model = new DefaultTableModel(data, columnNames) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// Only the third column
+				return column == 2;
+			}
+		};
+
 		this.table = new JTable(data, columnNames);
+		table.setModel(model);
+
 		this.table.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		this.table.setFillsViewportHeight(true);
 		this.table.setRowHeight(30);
-
+			    
 		for (int i = 2; i < 5; i++) {
 			JComboBox<Integer> myComboBox = new JComboBox<Integer>(scoreList);
 			this.table.getColumnModel().getColumn(i).setCellEditor(new DefaultCellEditor(myComboBox));
@@ -87,12 +100,6 @@ public class screen2 extends JPanel implements ActionListener {
 				}
 			});
 		}
-
-		// Create the scroll pane and add the table to it.
-		JScrollPane scrollPane = new JScrollPane(this.table);
-
-		// Add the scroll pane to this panel.
-		add(scrollPane);
 	}
 
 	private void printDebugData(JTable table) {
@@ -125,7 +132,7 @@ public class screen2 extends JPanel implements ActionListener {
 		// Display the window.
 		obj.initialize_frame(obj.frame);
 		obj.create_table();
-		obj.frame.add(table);
+		obj.frame.add(new JScrollPane(table));
 		obj.frame.pack();
 		JButton submit = new JButton("Submit");
 		obj.frame.add(submit);
@@ -142,11 +149,12 @@ public class screen2 extends JPanel implements ActionListener {
 			for (int j = 0; j < scores[0].length; j++)
 				total = total + scores[i][j];
 
-		// the GUI needs to handle this case and  raise and error when all entries are 0. 
-		// even if the normalization function gets all 0s, it should throw and exception
-		if(total == 0)
-			throw new ArithmeticException("All entries cant be zero");   
-
+		// the GUI needs to handle this case and raise and error when all
+		// entries are 0.
+		// even if the normalization function gets all 0s, it should throw and
+		// exception
+		if (total == 0)
+			throw new ArithmeticException("All entries cant be zero");
 
 		for (int i = 0; i < scores.length; i++) {
 			int current_sum = 0;
@@ -157,11 +165,10 @@ public class screen2 extends JPanel implements ActionListener {
 			normalized_score[i] = current_sum * 1.0 / total * 1.0;
 
 		}
-		
-		// debug only 
-		for (int i=0;i<scores.length;i++)	
-			System.out.println(i + " the score normalized = " + normalized_score[i]);
 
+		// debug only
+		for (int i = 0; i < scores.length; i++)
+			System.out.println(i + " the score normalized = " + normalized_score[i]);
 
 		return normalized_score;
 
@@ -174,25 +181,24 @@ public class screen2 extends JPanel implements ActionListener {
 		javax.swing.table.TableModel model = table.getModel();
 
 		boolean isAllZeroOrNull = true;
-		
+
 		int[][] scores = new int[numRows][3];
-		
+
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < 3; j++) {
-				Object value = model.getValueAt(i, j+2);
-				
-				if(value != null && (Integer)value != 0)
-				{
-					scores[i][j] = (Integer)value;
+				Object value = model.getValueAt(i, j + 2);
+
+				if (value != null && (Integer) value != 0) {
+					scores[i][j] = (Integer) value;
 					isAllZeroOrNull = false;
 				}
 			}
 		}
 
-		if(isAllZeroOrNull==true)
+		if (isAllZeroOrNull == true)
 			JOptionPane.showMessageDialog(null, "Please enter valid scores.");
-		
-		if(!isAllZeroOrNull)
+
+		if (!isAllZeroOrNull)
 			normalize(scores);
 	}
 }
