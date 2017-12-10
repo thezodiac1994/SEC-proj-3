@@ -1,3 +1,4 @@
+package sec;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -6,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
 
 public class screen2 extends JPanel implements ActionListener {
 	/**
@@ -17,17 +19,16 @@ public class screen2 extends JPanel implements ActionListener {
 	static boolean previouslyFilled = false;
 	static JPanel panel3 = new JPanel();
 	static JTable table = new JTable();
-	static JFrame frame = new JFrame("SimpleTableDemo");
-	// static Integer[] results = new Integer[];
+	static JFrame frame = new JFrame();
 
 	public void initialize_frame(JFrame frame) {
 
 		frame.setTitle("Software engineering peer evaluation system");
-		frame.setSize(800, 800);
+		frame.setSize(500, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new GridLayout(4, 1));
-		JLabel head = new JLabel("Welcome to peer evaluation system", JLabel.CENTER);
-		frame.add(Box.createRigidArea(new Dimension(3, 0)));
+		JLabel head = new JLabel("Peer evaluation form", JLabel.CENTER);
+		//frame.add(Box.createRigidArea(new Dimension(3, 0)));
 		frame.add(head);
 
 	}
@@ -135,7 +136,8 @@ public class screen2 extends JPanel implements ActionListener {
 		obj.frame.add(new JScrollPane(table));
 		obj.frame.pack();
 		JButton submit = new JButton("Submit");
-		obj.frame.add(submit);
+		panel3.add(submit);
+		obj.frame.add(panel3);
 		submit.addActionListener(this);
 		obj.frame.setVisible(true);
 	}
@@ -160,9 +162,11 @@ public class screen2 extends JPanel implements ActionListener {
 			int current_sum = 0;
 
 			for (int j = 0; j < scores[0].length; j++)
-				current_sum = current_sum + scores[i][j];
+				current_sum = current_sum + scores[i][j];	
+			double a = (current_sum * 1.0) / (total * 1.0);
+			normalized_score[i] = Math.floor(a *10)/10;
+			//normalized_score[i] = (current_sum * 1.0) / (total * 1.0);
 
-			normalized_score[i] = current_sum * 1.0 / total * 1.0;
 
 		}
 
@@ -183,6 +187,7 @@ public class screen2 extends JPanel implements ActionListener {
 		boolean isAllZeroOrNull = true;
 
 		int[][] scores = new int[numRows][3];
+		String[] members = new String[scores.length];
 
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < 3; j++) {
@@ -192,13 +197,20 @@ public class screen2 extends JPanel implements ActionListener {
 					scores[i][j] = (Integer) value;
 					isAllZeroOrNull = false;
 				}
+				members[i] = (String)model.getValueAt(i, 1);
 			}
 		}
 
 		if (isAllZeroOrNull == true)
 			JOptionPane.showMessageDialog(null, "Please enter valid scores.");
 
-		if (!isAllZeroOrNull)
-			normalize(scores);
+		if (!isAllZeroOrNull) {
+			double[] normalized_scores = new double[scores.length];
+			
+			normalized_scores = normalize(scores);
+			screen2 object = new screen2();
+			object.frame.setVisible(false);
+			screen3 screen = new screen3(members, normalized_scores);
+		}
 	}
 }
