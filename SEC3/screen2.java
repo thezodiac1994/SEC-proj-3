@@ -1,4 +1,3 @@
-package sec;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -53,6 +52,7 @@ public class screen2 extends JPanel implements ActionListener {
 				{ new Integer(3), "Mike", new Integer(5), new Integer(4), new Integer(5) },
 				{ new Integer(4), "Gordon", new Integer(5), new Integer(4), new Integer(5) },
 				{ new Integer(5), "Liz", new Integer(5), new Integer(4), new Integer(5) },
+				{ new Integer(5), "Scott", new Integer(4), new Integer(5), new Integer(5) },
 				{ new Integer(7), "Rob", new Integer(5), new Integer(4), new Integer(5) } };
 
 		Object[][] data = new Object[memberCount][5];
@@ -77,8 +77,9 @@ public class screen2 extends JPanel implements ActionListener {
 		DefaultTableModel model = new DefaultTableModel(data, columnNames) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
-				// Only the third column
-				return column == 2;
+				if(column == 1 || column == 0)
+					return false;
+				return true;
 			}
 		};
 
@@ -184,10 +185,12 @@ public class screen2 extends JPanel implements ActionListener {
 		int numRows = table.getRowCount();
 		javax.swing.table.TableModel model = table.getModel();
 
-		boolean isAllZeroOrNull = true;
+		boolean isNull = false;
 
 		int[][] scores = new int[numRows][3];
 		String[] members = new String[scores.length];
+		
+		int sum = 0;
 
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < 3; j++) {
@@ -195,16 +198,27 @@ public class screen2 extends JPanel implements ActionListener {
 
 				if (value != null && (Integer) value != 0) {
 					scores[i][j] = (Integer) value;
-					isAllZeroOrNull = false;
 				}
-				members[i] = (String)model.getValueAt(i, 1);
+				else if(value == null)
+				{
+					isNull = true;
+				}
+				
+				if(value != null)
+					sum = sum + (Integer) value;
 			}
+			members[i] = (String)model.getValueAt(i, 1);
 		}
 
-		if (isAllZeroOrNull == true)
-			JOptionPane.showMessageDialog(null, "Please enter valid scores.");
+		for (int i =0 ; i<numRows; i++)
+			System.out.println(members[i]);
+		
+		if (isNull)
+			JOptionPane.showMessageDialog(null, "Please enter all the scores");
+		else if(sum == 0)
+			JOptionPane.showMessageDialog(null, "All the scores cannot be 0. Please enter valid scores");
 
-		if (!isAllZeroOrNull) {
+		if (!isNull && sum != 0){
 			double[] normalized_scores = new double[scores.length];
 			
 			normalized_scores = normalize(scores);
