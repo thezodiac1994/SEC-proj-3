@@ -4,6 +4,11 @@ import java.awt.GridLayout;
 
 import javax.swing.*;
 
+/**
+ * Displays the normalized scores of all the team members
+ * @author Group 11
+ *
+ */
 public class screen3 {
 	JFrame frame;
 	JPanel panel;
@@ -18,11 +23,22 @@ public class screen3 {
 	public screen3(){
 		
 	}
+	
+	/**
+	 * Display screen constructor called from previous window
+	 * @param members
+	 * @param scores
+	 */
 	public screen3(String[] members, double[] scores) {
 		set_screen(members,scores);
 		
 	}
 	
+	/**
+	 * Setting display screen with team members and normalized scores
+	 * @param members
+	 * @param scores
+	 */
 	public void set_screen(String[] members, double[] scores) {
 		frame =  new JFrame();
 		frame.setSize(500, 500);
@@ -58,15 +74,13 @@ public class screen3 {
         panel.add(panel2);
         
         
-  	  head.setMaximumSize(head.getPreferredSize());
+  	  	head.setMaximumSize(head.getPreferredSize());
 
         frame.add(head);
-  	  panel.setMaximumSize(panel.getPreferredSize());
+  	  	panel.setMaximumSize(panel.getPreferredSize());
 
         frame.add(panel);
-	  	//frame.setLayout(new GridLayout(8,1));
-	  	
-	  	frame.setVisible(true);
+  	  	frame.setVisible(true);
 	}
 
 }
